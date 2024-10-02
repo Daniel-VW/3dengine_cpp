@@ -62,5 +62,10 @@
         "algorithm": "cpp",
         "exception": "cpp"
     },
-    "cmake.configureOnOpen": false
+    "cmake.configureOnOpen": false,
+    "workbench.colorCustomizations": {
+        "activityBar.background": "#18331F",
+        "titleBar.activeBackground": "#22472B",
+        "titleBar.activeForeground": "#F6FBF7"
+    }
 }
