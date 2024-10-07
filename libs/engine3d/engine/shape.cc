@@ -20,17 +20,36 @@ std::vector<triangle> Shape::generate_mesh(double len, double wi) { // not used 
     double leftWidth = width * 1;  // Solid line width
     double rightWidth = width * 1; // Striped line width
     double stripeCount = 5;
+    double LineDistance = 0.1;
+    bool rightLine = true;
+    bool leftLine = true;
+    bool stripedLine = true;
 
-    // Solid line
-    cv::Mat SolidLine_P0 = createPoint(-length / 2, leftWidth / 2 - (length / 3), 0);  // Top left
-    cv::Mat SolidLine_P1 = createPoint(-length / 2, -leftWidth / 2 - (length / 3), 0); // Bottom left
-    cv::Mat SolidLine_P2 = createPoint(length / 2, -leftWidth / 2 - (length / 3), 0);  // Bottom right
-    cv::Mat SolidLine_P3 = createPoint(length / 2, leftWidth / 2 - (length / 3), 0);   // Top right
+    if (rightLine) {
+    // Solid line right
+    cv::Mat SolidLine_P0 = createPoint(-length / 2, leftWidth / 2 - (LineDistance), 0);  // Top left
+    cv::Mat SolidLine_P1 = createPoint(-length / 2, -leftWidth / 2 - (LineDistance), 0); // Bottom left
+    cv::Mat SolidLine_P2 = createPoint(length / 2, -leftWidth / 2 - (LineDistance), 0);  // Bottom right
+    cv::Mat SolidLine_P3 = createPoint(length / 2, leftWidth / 2 - (LineDistance), 0);   // Top right
 
     // Triangles
     mesh.push_back({ {SolidLine_P0, SolidLine_P1, SolidLine_P2} }); 
     mesh.push_back({ {SolidLine_P0, SolidLine_P2, SolidLine_P3} }); 
+    }
 
+    if (leftLine) {
+    // Solid line left
+    cv::Mat SecSolidLine_P0 = createPoint(-length / 2, leftWidth / 2 + (LineDistance), 0);  // Top left
+    cv::Mat SecSolidLine_P1 = createPoint(-length / 2, -leftWidth / 2 + (LineDistance), 0); // Bottom left
+    cv::Mat SecSolidLine_P2 = createPoint(length / 2, -leftWidth / 2 + (LineDistance), 0);  // Bottom right
+    cv::Mat SecSolidLine_P3 = createPoint(length / 2, leftWidth / 2 + (LineDistance), 0);   // Top right
+
+    // Triangles
+    mesh.push_back({ {SecSolidLine_P0, SecSolidLine_P1, SecSolidLine_P2} }); 
+    mesh.push_back({ {SecSolidLine_P0, SecSolidLine_P2, SecSolidLine_P3} }); 
+    }
+
+    if (stripedLine) {
     // Striped line
     double stripeSpacing = length / stripeCount * 0.5;
     double stripeLength = (length - stripeSpacing * (stripeCount - 1)) / stripeCount;
@@ -47,6 +66,7 @@ std::vector<triangle> Shape::generate_mesh(double len, double wi) { // not used 
         // Triangles
         mesh.push_back({ {Stripe_P0, Stripe_P1, Stripe_P2} });
         mesh.push_back({ {Stripe_P0, Stripe_P2, Stripe_P3} });
+    }
     }
 
     return mesh;
