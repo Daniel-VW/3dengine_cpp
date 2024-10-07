@@ -12,11 +12,14 @@ cv::Mat Shape::createPoint(double x, double y, double z) {
     return point;
 }
 
-std::vector<triangle> Shape::generate_mesh(double length, double width) {
+std::vector<triangle> Shape::generate_mesh(double len, double wi) { // not used right now
     std::vector<triangle> mesh;
-
-    double leftWidth = width * 0.4;  // Solid line width (left side)
-    double rightWidth = width * 0.4; // Striped line width (right side)
+    // Edit parameters here:
+    double length = 0.3;
+    double width = 0.015;
+    double leftWidth = width * 1;  // Solid line width
+    double rightWidth = width * 1; // Striped line width
+    double stripeCount = 5;
 
     // Solid line
     cv::Mat SolidLine_P0 = createPoint(-length / 2, leftWidth / 2 - (length / 3), 0);  // Top left
@@ -28,11 +31,11 @@ std::vector<triangle> Shape::generate_mesh(double length, double width) {
     mesh.push_back({ {SolidLine_P0, SolidLine_P1, SolidLine_P2} }); 
     mesh.push_back({ {SolidLine_P0, SolidLine_P2, SolidLine_P3} }); 
 
-    // Striped line (5 rectangles)
-    double stripeSpacing = length / 5 * 0.5;  // Space between stripes
-    double stripeLength = (length - stripeSpacing * 4) / 5;  // Length of each stripe (4 spaces)
+    // Striped line
+    double stripeSpacing = length / stripeCount * 0.5;
+    double stripeLength = (length - stripeSpacing * (stripeCount - 1)) / stripeCount;
     
-    for (int i = 0; i < 5; ++i) {
+    for (int i = 0; i < stripeCount; ++i) {
         double stripeStart = -length / 2 + i * (stripeLength + stripeSpacing);
         double stripeEnd = stripeStart + stripeLength;
 

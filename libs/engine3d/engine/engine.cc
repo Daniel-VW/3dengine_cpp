@@ -32,7 +32,7 @@ Engine::Engine(int frame_width, int frame_height)
 {
 
     //generate cube mesh
-    mesh = shape.generate_mesh(0.3, 0.035);
+    mesh = shape.generate_mesh(0.3, 0.015);
 
 }
 

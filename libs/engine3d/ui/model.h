@@ -50,7 +50,7 @@ public:
     ADD_PROPERTY(double, cameraSystemRotationRoll, CameraSystemRotationRoll, 2700.0)
     ADD_PROPERTY(double, cameraSystemRotationPitch, CameraSystemRotationPitch, 0.0)
     ADD_PROPERTY(double, cameraSystemRotationYaw, CameraSystemRotationYaw, 2700.0)
-    ADD_PROPERTY(double, cubeSystemTranslationX, CubeSystemTranslationX, 10330.0)
+    ADD_PROPERTY(double, cubeSystemTranslationX, CubeSystemTranslationX, 10400.0)
     ADD_PROPERTY(double, cubeSystemTranslationY, CubeSystemTranslationY, 10130.0)
     ADD_PROPERTY(double, cubeSystemTranslationZ, CubeSystemTranslationZ, 10080.0)
     ADD_PROPERTY(double, cubeSystemRotationRoll, CubeSystemRotationRoll, 0.0)
