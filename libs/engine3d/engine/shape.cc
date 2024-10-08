@@ -15,19 +15,28 @@ cv::Mat Shape::createPoint(double x, double y, double z) {
 std::vector<triangle> Shape::generate_mesh(double len, double wi) { // not used right now
     std::vector<triangle> mesh;
     // Edit parameters here:
-    double length = 0.3;
+    double length = 0.35;
     double width = 0.015;
     double solidLineWidth = width * 1;
     double stripedLineWidth = width * 1;
-    double stripeCount = 5;
+    double wantedStripeNum = 5;
     double stripedLineSpaceMultiplier = 0.5; // value * striped line len = space between stipes
+    double stripeLength = 0.035;
     double LineDistance = 0.1;
+    double stripeSpacing = length / wantedStripeNum * stripedLineSpaceMultiplier;
+    double actStripeCount = 1;
+    bool stripedLine = true;
     bool rightLine = true;
     bool leftLine = true;
-    bool stripedLine = true;
+
+    while (stripeLength * actStripeCount + stripeSpacing * (actStripeCount) < length) {
+        actStripeCount = actStripeCount + 1;
+        if (actStripeCount == wantedStripeNum) {
+            break;
+        }
+    }
 
     if (rightLine) {
-    // Solid line right
     cv::Mat SolidLine_P0 = createPoint(-length / 2, solidLineWidth / 2 - (LineDistance), 0);  // Top left
     cv::Mat SolidLine_P1 = createPoint(-length / 2, -solidLineWidth / 2 - (LineDistance), 0); // Bottom left
     cv::Mat SolidLine_P2 = createPoint(length / 2, -solidLineWidth / 2 - (LineDistance), 0);  // Bottom right
@@ -39,7 +48,6 @@ std::vector<triangle> Shape::generate_mesh(double len, double wi) { // not used 
     }
 
     if (leftLine) {
-    // Solid line left
     cv::Mat SecSolidLine_P0 = createPoint(-length / 2, solidLineWidth / 2 + (LineDistance), 0);  // Top left
     cv::Mat SecSolidLine_P1 = createPoint(-length / 2, -solidLineWidth / 2 + (LineDistance), 0); // Bottom left
     cv::Mat SecSolidLine_P2 = createPoint(length / 2, -solidLineWidth / 2 + (LineDistance), 0);  // Bottom right
@@ -51,11 +59,8 @@ std::vector<triangle> Shape::generate_mesh(double len, double wi) { // not used 
     }
 
     if (stripedLine) {
-    // Striped line
-    double stripeSpacing = length / stripeCount * stripedLineSpaceMultiplier;
-    double stripeLength = (length - stripeSpacing * (stripeCount - 1)) / stripeCount;
-    
-    for (int i = 0; i < stripeCount; ++i) {
+    // double stripeLength = (length - stripeSpacing * (wantedStripeNum - 1)) / wantedStripeNum;
+    for (int i = 0; i < actStripeCount; ++i) {
         double stripeStart = -length / 2 + i * (stripeLength + stripeSpacing);
         double stripeEnd = stripeStart + stripeLength;
 
