@@ -25,7 +25,7 @@ class Shape {
 public:
 
     cv::Mat createPoint(double x, double y, double z);
-    std::vector<triangle> generate_mesh(double length, double width);
+    std::vector<triangle> generate_mesh(double lane_parameters[]);
     void set_position(double x, double y, double z, triangle* mesh);
 
 };

@@ -12,25 +12,25 @@ cv::Mat Shape::createPoint(double x, double y, double z) {
     return point;
 }
 
-std::vector<triangle> Shape::generate_mesh(double len, double wi) { // not used right now
+std::vector<triangle> Shape::generate_mesh(double lane_parameters[]) {
     std::vector<triangle> mesh;
-    // Edit parameters here:
-    double length = 0.35;
-    double width = 0.015;
-    double solidLineWidth = width * 1;
-    double stripedLineWidth = width * 1;
-    double wantedStripeNum = 5;
+    double length = lane_parameters[1];
+    double width = lane_parameters[0] * 0.1; // just to make the values bigger, more readable
+    double solidLineWidth = width;
+    double stripedLineWidth = width;
+    double wantedStripeNum = lane_parameters[2];
     double stripedLineSpaceMultiplier = 0.5; // value * striped line len = space between stipes
-    double stripeLength = 0.035;
-    double LineDistance = 0.1;
-    double stripeSpacing = length / wantedStripeNum * stripedLineSpaceMultiplier;
+    double stripeLength = lane_parameters[3];
+    double LineDistance = lane_parameters[4];
     double actStripeCount = 1;
-    bool stripedLine = true;
-    bool rightLine = true;
-    bool leftLine = true;
+    double stripeSpacing = length / actStripeCount * stripedLineSpaceMultiplier;
+    bool stripedLine = lane_parameters[5];
+    bool rightLine = lane_parameters[7];
+    bool leftLine = lane_parameters[6];
 
     while (stripeLength * actStripeCount + stripeSpacing * (actStripeCount) < length) {
         actStripeCount = actStripeCount + 1;
+        stripeSpacing = length / actStripeCount * stripedLineSpaceMultiplier; // update stipeSpacing because actStripeCount changed
         if (actStripeCount == wantedStripeNum) {
             break;
         }

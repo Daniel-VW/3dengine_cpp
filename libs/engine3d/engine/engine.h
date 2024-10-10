@@ -23,7 +23,7 @@ public:
     Engine(int frame_width, int frame_height);
     ~Engine();
 
-	cv::Mat run(cv::Mat& frame, const HTM::Matrix::Parameter parameter);
+	cv::Mat run(cv::Mat& frame, const HTM::Matrix::Parameter parameter, double lane_parameters[]);
     CameraModel camera;
     RenderSystem renderer;
 

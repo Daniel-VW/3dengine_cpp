@@ -1,4 +1,4 @@
-// Copyright (C) 2024 Marvin-VW
+// Copyright (C) 2024 Marvin-VW, Daniel-VW
 #include "engine.h"
 
 #include <cmath>
@@ -30,10 +30,6 @@ Engine::Engine(int frame_width, int frame_height)
       fps(60),
       renderer(camera, shape, clipping, vector, color, fps)
 {
-
-    //generate cube mesh
-    mesh = shape.generate_mesh(0.3, 0.015);
-
 }
 
 Engine::~Engine()
@@ -41,8 +37,9 @@ Engine::~Engine()
 }
 
 
-cv::Mat Engine::run(cv::Mat& frame, const HTM::Matrix::Parameter parameter)
+cv::Mat Engine::run(cv::Mat& frame, const HTM::Matrix::Parameter parameter, double lane_parameters[])
 {
+    mesh = shape.generate_mesh(lane_parameters);
     camera.resetCameraImage(frame);
 
     renderer.create_matrices(parameter);

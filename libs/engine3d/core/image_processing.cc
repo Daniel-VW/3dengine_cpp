@@ -30,6 +30,7 @@ void ImageProcessing::run() {
 
 	int frame_width = 640;
 	int frame_height = 480;
+	double lane_parameters[10];
 
 	cv::Mat camera_frame;
     cv::Mat engine_frame;
@@ -39,10 +40,11 @@ void ImageProcessing::run() {
     bool running = true;
 
     while(running) {
+		double lane_parameters[] = {mParameterModel.getWidth(), mParameterModel.getLength(), mParameterModel.getStripeNumber(), mParameterModel.getStripeLength(), mParameterModel.getLineDistance(), mParameterModel.getStripedLine(), mParameterModel.getLeftLine(), mParameterModel.getRightLine()};
 
 		camera_frame = cv::Mat(frame_height, frame_width, CV_8UC3, cv::Scalar(255,255,255));
 
-		engine_frame = engine.run(camera_frame, getParameters());
+		engine_frame = engine.run(camera_frame, getParameters(), lane_parameters);
 
 		QImage img((uchar*)engine_frame.data, engine_frame.cols, engine_frame.rows, QImage::Format_RGB888);
 		mImageModel.setImage(QPixmap::fromImage(img));

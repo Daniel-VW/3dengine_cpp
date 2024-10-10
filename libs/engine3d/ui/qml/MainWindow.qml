@@ -186,6 +186,79 @@ ApplicationWindow
                 onValueChanged: parameterModel.cubeSystemFaces = value
             }
 
+            AdvancedSlider {
+                id: width
+                width: parent.width
+                name: "width"
+                from: 0.01
+                to: 1
+                value: parameterModel.width
+                stepSize: 0.01
+                onValueChanged: parameterModel.width = value
+            }
+
+            AdvancedSlider {
+                id: length
+                width: parent.width
+                name: "length"
+                from: 0.01
+                to: 1
+                value: parameterModel.length
+                stepSize: 0.01
+                onValueChanged: parameterModel.length = value
+            }
+
+            AdvancedSlider {
+                id: stripeNum
+                width: parent.width
+                name: "stripeNumber"
+                from: 2
+                to: 25
+                value: parameterModel.stripeNumber
+                stepSize: 1
+                onValueChanged: parameterModel.stripeNumber = value
+            }
+
+            AdvancedSlider {
+                id: stripeLength
+                width: parent.width
+                name: "stripeLength"
+                from: 0.01
+                to: 1
+                value: parameterModel.stripeLength
+                stepSize: 0.01
+                onValueChanged: parameterModel.stripeLength = value
+            }
+
+            AdvancedSlider {
+                id: lineDistance
+                width: parent.width
+                name: "lineDistance"
+                from: 0.01
+                to: 5
+                value: parameterModel.lineDistance
+                stepSize: 0.01
+                onValueChanged: parameterModel.lineDistance = value
+            }
+
+            AdvancedSwitch {
+                name: "stripedLine"
+                width: parent.width
+                onValueChanged: parameterModel.stripedLine = value
+            }
+
+            AdvancedSwitch {
+                name: "leftLine"
+                width: parent.width
+                onValueChanged: parameterModel.leftLine = value
+            }
+
+            AdvancedSwitch {
+                name: "rightLine"
+                width: parent.width
+                onValueChanged: parameterModel.rightLine = value
+            }
+
         }
 
         Image {
