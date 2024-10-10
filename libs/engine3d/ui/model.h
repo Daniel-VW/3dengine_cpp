@@ -60,13 +60,13 @@ public:
     ADD_PROPERTY(int, cubeSystemNormals, CubeSystemNormals, 0.0)
     ADD_PROPERTY(int, cubeSystemPoints, CubeSystemPoints, 0.0)
     ADD_PROPERTY(int, cubeSystemFaces, CubeSystemFaces, 0.0)
-	ADD_PROPERTY(double, width, Width, 0.15)
 	ADD_PROPERTY(double, length, Length, 0.35)
+	ADD_PROPERTY(double, width, Width, 0.15)
 	ADD_PROPERTY(double, stripeNumber, StripeNumber, 5)
 	ADD_PROPERTY(double, stripeLength, StripeLength, 0.035)
 	ADD_PROPERTY(double, lineDistance, LineDistance, 0.1)
+	ADD_PROPERTY(double, leftLine, LeftLine, 1.0)
 	ADD_PROPERTY(double, stripedLine, StripedLine, 1.0)
-    ADD_PROPERTY(double, leftLine, LeftLine, 1.0)
     ADD_PROPERTY(double, rightLine, RightLine, 1.0)
 
 

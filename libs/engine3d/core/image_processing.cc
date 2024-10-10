@@ -40,7 +40,7 @@ void ImageProcessing::run() {
     bool running = true;
 
     while(running) {
-		double lane_parameters[] = {mParameterModel.getWidth(), mParameterModel.getLength(), mParameterModel.getStripeNumber(), mParameterModel.getStripeLength(), mParameterModel.getLineDistance(), mParameterModel.getStripedLine(), mParameterModel.getLeftLine(), mParameterModel.getRightLine()};
+		double lane_parameters[] = {mParameterModel.getLength(), mParameterModel.getWidth(), mParameterModel.getStripeNumber(), mParameterModel.getStripeLength(), mParameterModel.getLineDistance(), mParameterModel.getLeftLine(), mParameterModel.getStripedLine(), mParameterModel.getRightLine()};
 
 		camera_frame = cv::Mat(frame_height, frame_width, CV_8UC3, cv::Scalar(255,255,255));
 

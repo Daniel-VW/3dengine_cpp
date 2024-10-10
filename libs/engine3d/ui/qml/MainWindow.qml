@@ -187,17 +187,6 @@ ApplicationWindow
             }
 
             AdvancedSlider {
-                id: width
-                width: parent.width
-                name: "width"
-                from: 0.01
-                to: 1
-                value: parameterModel.width
-                stepSize: 0.01
-                onValueChanged: parameterModel.width = value
-            }
-
-            AdvancedSlider {
                 id: length
                 width: parent.width
                 name: "length"
@@ -206,6 +195,17 @@ ApplicationWindow
                 value: parameterModel.length
                 stepSize: 0.01
                 onValueChanged: parameterModel.length = value
+            }
+
+            AdvancedSlider {
+                id: width
+                width: parent.width
+                name: "width"
+                from: 0.01
+                to: 1
+                value: parameterModel.width
+                stepSize: 0.01
+                onValueChanged: parameterModel.width = value
             }
 
             AdvancedSlider {
@@ -242,15 +242,15 @@ ApplicationWindow
             }
 
             AdvancedSwitch {
-                name: "stripedLine"
-                width: parent.width
-                onValueChanged: parameterModel.stripedLine = value
-            }
-
-            AdvancedSwitch {
                 name: "leftLine"
                 width: parent.width
                 onValueChanged: parameterModel.leftLine = value
+            }
+
+            AdvancedSwitch {
+                name: "stripedLine"
+                width: parent.width
+                onValueChanged: parameterModel.stripedLine = value
             }
 
             AdvancedSwitch {

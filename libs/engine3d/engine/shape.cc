@@ -14,33 +14,33 @@ cv::Mat Shape::createPoint(double x, double y, double z) {
 
 std::vector<triangle> Shape::generate_mesh(double lane_parameters[]) {
     std::vector<triangle> mesh;
-    double length = lane_parameters[1];
-    double width = lane_parameters[0] * 0.1; // just to make the values bigger, more readable
+    double length = lane_parameters[0];
+    double width = lane_parameters[1] * 0.1; // just to make the values bigger, more readable
     double solidLineWidth = width;
     double stripedLineWidth = width;
     double wantedStripeNum = lane_parameters[2];
     double stripedLineSpaceMultiplier = 0.5; // value * striped line len = space between stipes
     double stripeLength = lane_parameters[3];
-    double LineDistance = lane_parameters[4];
-    double actStripeCount = 1;
-    double stripeSpacing = length / actStripeCount * stripedLineSpaceMultiplier;
-    bool stripedLine = lane_parameters[5];
+    double lineDistance = lane_parameters[4];
+    double actStripeNum = 1;
+    double stripeSpacing = length / actStripeNum * stripedLineSpaceMultiplier;
+    bool leftLine = lane_parameters[5];
+    bool stripedLine = lane_parameters[6];
     bool rightLine = lane_parameters[7];
-    bool leftLine = lane_parameters[6];
-
-    while (stripeLength * actStripeCount + stripeSpacing * (actStripeCount) < length) {
-        actStripeCount = actStripeCount + 1;
-        stripeSpacing = length / actStripeCount * stripedLineSpaceMultiplier; // update stipeSpacing because actStripeCount changed
-        if (actStripeCount == wantedStripeNum) {
+    
+    while (stripeLength * actStripeNum + stripeSpacing * (actStripeNum) < length) {
+        actStripeNum = actStripeNum + 1;
+        stripeSpacing = length / actStripeNum * stripedLineSpaceMultiplier; // update stipeSpacing because actStripeNum changed
+        if (actStripeNum == wantedStripeNum) {
             break;
         }
     }
 
     if (rightLine) {
-    cv::Mat SolidLine_P0 = createPoint(-length / 2, solidLineWidth / 2 - (LineDistance), 0);  // Top left
-    cv::Mat SolidLine_P1 = createPoint(-length / 2, -solidLineWidth / 2 - (LineDistance), 0); // Bottom left
-    cv::Mat SolidLine_P2 = createPoint(length / 2, -solidLineWidth / 2 - (LineDistance), 0);  // Bottom right
-    cv::Mat SolidLine_P3 = createPoint(length / 2, solidLineWidth / 2 - (LineDistance), 0);   // Top right
+    cv::Mat SolidLine_P0 = createPoint(-length / 2, solidLineWidth / 2 - (lineDistance), 0);  // Top left
+    cv::Mat SolidLine_P1 = createPoint(-length / 2, -solidLineWidth / 2 - (lineDistance), 0); // Bottom left
+    cv::Mat SolidLine_P2 = createPoint(length / 2, -solidLineWidth / 2 - (lineDistance), 0);  // Bottom right
+    cv::Mat SolidLine_P3 = createPoint(length / 2, solidLineWidth / 2 - (lineDistance), 0);   // Top right
 
     // Triangles
     mesh.push_back({ {SolidLine_P0, SolidLine_P1, SolidLine_P2} }); 
@@ -48,10 +48,10 @@ std::vector<triangle> Shape::generate_mesh(double lane_parameters[]) {
     }
 
     if (leftLine) {
-    cv::Mat SecSolidLine_P0 = createPoint(-length / 2, solidLineWidth / 2 + (LineDistance), 0);  // Top left
-    cv::Mat SecSolidLine_P1 = createPoint(-length / 2, -solidLineWidth / 2 + (LineDistance), 0); // Bottom left
-    cv::Mat SecSolidLine_P2 = createPoint(length / 2, -solidLineWidth / 2 + (LineDistance), 0);  // Bottom right
-    cv::Mat SecSolidLine_P3 = createPoint(length / 2, solidLineWidth / 2 + (LineDistance), 0);   // Top right
+    cv::Mat SecSolidLine_P0 = createPoint(-length / 2, solidLineWidth / 2 + (lineDistance), 0);  // Top left
+    cv::Mat SecSolidLine_P1 = createPoint(-length / 2, -solidLineWidth / 2 + (lineDistance), 0); // Bottom left
+    cv::Mat SecSolidLine_P2 = createPoint(length / 2, -solidLineWidth / 2 + (lineDistance), 0);  // Bottom right
+    cv::Mat SecSolidLine_P3 = createPoint(length / 2, solidLineWidth / 2 + (lineDistance), 0);   // Top right
 
     // Triangles
     mesh.push_back({ {SecSolidLine_P0, SecSolidLine_P1, SecSolidLine_P2} }); 
@@ -60,7 +60,7 @@ std::vector<triangle> Shape::generate_mesh(double lane_parameters[]) {
 
     if (stripedLine) {
     // double stripeLength = (length - stripeSpacing * (wantedStripeNum - 1)) / wantedStripeNum;
-    for (int i = 0; i < actStripeCount; ++i) {
+    for (int i = 0; i < actStripeNum; ++i) {
         double stripeStart = -length / 2 + i * (stripeLength + stripeSpacing);
         double stripeEnd = stripeStart + stripeLength;
 
